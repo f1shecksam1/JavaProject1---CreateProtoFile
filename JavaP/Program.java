@@ -32,9 +32,9 @@ public class Program {
                 e.printStackTrace();
             }
 
-            try (Scanner input = new Scanner(System.in)) {
+            try (Scanner inputs = new Scanner(System.in)) {
                 ScalarValuesCSharp csharp = new ScalarValuesCSharp();
-                String name = input.nextLine();
+                String name = inputs.nextLine();
 
                 for (String key : csharp.scalarValuesMap.keySet()) {
                     String value = csharp.scalarValuesMap.get(key);
