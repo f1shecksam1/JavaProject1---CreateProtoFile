@@ -1,8 +1,5 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -31,18 +28,7 @@ public class Program {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
-            try (Scanner inputs = new Scanner(System.in)) {
-                ScalarValuesCSharp csharp = new ScalarValuesCSharp();
-                String name = inputs.nextLine();
-
-                for (String key : csharp.scalarValuesMap.keySet()) {
-                    String value = csharp.scalarValuesMap.get(key);
-                    if (key.equals(name)) {
-                        System.out.println(value);
-                    }
-                }
-            }
+            // hüseyin sikimi kemir
         }
     }
 }
