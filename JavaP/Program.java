@@ -31,6 +31,18 @@ public class Program {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            try (Scanner input = new Scanner(System.in)) {
+                ScalarValuesCSharp csharp = new ScalarValuesCSharp();
+                String name = input.nextLine();
+
+                for (String key : csharp.scalarValuesMap.keySet()) {
+                    String value = csharp.scalarValuesMap.get(key);
+                    if (key.equals(name)) {
+                        System.out.println(value);
+                    }
+                }
+            }
         }
     }
 }
