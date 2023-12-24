@@ -28,7 +28,7 @@ public class Program {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // hüseyin sikimi kemir
+            //sami YARRAĞIMI YALA
         }
     }
 }
