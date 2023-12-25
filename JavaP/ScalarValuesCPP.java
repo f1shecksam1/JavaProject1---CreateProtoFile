@@ -11,6 +11,7 @@ public class ScalarValuesCPP extends ScalarValuesBase {
         fixed32String = "uint32";
         fixed64String = "uint64";
         boolString = "bool";
+        stringString = "string";
         bytesString = "string";
         SetScalarValuesMap();
     }

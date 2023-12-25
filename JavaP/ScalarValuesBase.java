@@ -13,7 +13,9 @@ abstract class ScalarValuesBase {
     protected String fixed32StringBase = "fixed32";
     protected String fixed64StringBase = "fixed64";
     protected String boolStringBase = "bool";
+    protected String stringStringBase = "string";
     protected String bytesStringBase = "bytes";
+
 
     protected String doubleString;
     protected String floatString;
@@ -26,6 +28,7 @@ abstract class ScalarValuesBase {
     protected String fixed32String;
     protected String fixed64String;
     protected String boolString;
+    protected String stringString;
     protected String bytesString;
 
     protected Map<String, String> scalarValuesMap;
@@ -49,5 +52,6 @@ abstract class ScalarValuesBase {
         scalarValuesMap.put(fixed64String, fixed64StringBase);
         scalarValuesMap.put(boolString, boolStringBase);
         scalarValuesMap.put(bytesString, bytesStringBase);
+        scalarValuesMap.put(stringString, stringStringBase);
     }
 }

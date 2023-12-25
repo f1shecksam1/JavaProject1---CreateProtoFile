@@ -11,6 +11,7 @@ public class ScalarValuesCSharp extends ScalarValuesBase {
         fixed32String = "int[2]";
         fixed64String = "long[2]";
         boolString = "bool";
+        stringString = "string";
         bytesString = "ByteString";
         SetScalarValuesMap();
     }

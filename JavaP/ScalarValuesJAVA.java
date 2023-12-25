@@ -11,6 +11,7 @@ public class ScalarValuesJAVA extends ScalarValuesBase {
         fixed32String = "int";
         fixed64String = "long";
         boolString = "boolean";
+        stringString = "String";
         bytesString = "ByteString";
         SetScalarValuesMap();
     }
