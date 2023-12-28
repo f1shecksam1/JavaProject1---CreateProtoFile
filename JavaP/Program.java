@@ -6,13 +6,41 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Program {
+
     public static void main(String[] args) {
+        ScalarValuesCSharp csharp;
+        ScalarValuesCPP cpp;
+        ScalarValuesJAVA java;
+        ScalarValuesPython python;
         try (Scanner input = new Scanner(System.in)) {
             System.out.print("Please write your programming language (C#, C++, Java, Python): ");
             String programmingLanguage = input.nextLine();
             System.out.print("Please write your proto file name: ");
             String protoFileName = input.nextLine();
             String protoFileNameWithProto = protoFileName + ".proto";
+            String selectedLanguage="";
+
+            switch (programmingLanguage){
+                case "C#":
+                    selectedLanguage="C#";
+                    csharp = new ScalarValuesCSharp();
+
+                case "C++":
+                    selectedLanguage="C+";
+                    cpp = new ScalarValuesCPP();
+
+                case "Java":
+                    selectedLanguage="Java";
+                    java = new ScalarValuesJAVA();
+
+                case  "Python":
+                    selectedLanguage="Python";
+                    python = new ScalarValuesPython();
+
+                default:
+                    System.out.println("Adam Akıllı dil gir caz yapma");
+
+            }
 
             try {
                 Path path = Paths.get(protoFileNameWithProto);
