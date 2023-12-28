@@ -6,16 +6,29 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Program {
+    /*public void setdefaultMessage(String userInput, List<String> lines , List<String>  messageVeriables,List<String> messageVeriablesName){
+        String messageBase = "message " + userInput + "{";
+        lines.add(messageBase);
+        for (int i = 0;i<messageVeriables.size();i++){
+            String messageVeriables1 =  messageVeriables.get(i) + " " + messageVeriablesName.get(i) + " = " + (i+1);
+        }
 
+    }*/
     public static void main(String[] args) {
+
         ScalarValuesCSharp csharp;
         ScalarValuesCPP cpp;
         ScalarValuesJAVA java;
         ScalarValuesPython python;
         try (Scanner input = new Scanner(System.in)) {
-            System.out.print("Please write your programming language (C#, C++, Java, Python): ");
+            System.out.println("Please write your programming language (C#, C++, Java, Python): ");
             String programmingLanguage = input.nextLine();
-            System.out.print("Please write your proto file name: ");
+            while (!programmingLanguage.equals("C#") && !programmingLanguage.equals("C++") && !programmingLanguage.equals("Java") && !programmingLanguage.equals("Python")) {
+                System.out.println("Gecersiz dil girdiniz. Lutfen tekrar giriniz.");
+                System.out.println("Please write your programming language (C#, C++, Java, Python): ");
+                programmingLanguage = input.nextLine();
+            }
+            System.out.println("Please write your proto file name: ");
             String protoFileName = input.nextLine();
             String protoFileNameWithProto = protoFileName + ".proto";
             String selectedLanguage="";
@@ -24,57 +37,66 @@ public class Program {
                 case "C#":
                     selectedLanguage="C#";
                     csharp = new ScalarValuesCSharp();
-
+                    System.out.println("C# switch girdi");
+                    break;
                 case "C++":
                     selectedLanguage="C+";
                     cpp = new ScalarValuesCPP();
+                    break;
 
                 case "Java":
                     selectedLanguage="Java";
                     java = new ScalarValuesJAVA();
-
+                    break;
                 case  "Python":
                     selectedLanguage="Python";
                     python = new ScalarValuesPython();
+                    break;
 
                 default:
-                    System.out.println("Adam Akıllı dil gir caz yapma");
-
+                    System.out.println("SwitchCase defalt. Cıkıs yaptı. Noluyo lan");
+                    break;
             }
 
             try {
                 Path path = Paths.get(protoFileNameWithProto);
+                List<String> lines = new ArrayList<>();
+
                 if (Files.exists(path)) {
-                    List<String> lines = Files.readAllLines(path);
+                    lines = Files.readAllLines(path);
                     Files.write(path, lines);
                 } else {
                     System.out.println("New proto file created.");
                     Files.createFile(path);
-                    List<String> lines = new ArrayList<>();
+
                     lines.add("syntax = \"proto3\";");
                     lines.add("");
                     lines.add("package " + protoFileName);
-                    Files.write(path, lines);
+                    //Files.write(path, lines);
                     try {
-                        System.out.print("Please write your message count: ");
-                        int messageCount = input.nextInt();
-                        for (int messageIndex = 0; messageIndex < messageCount; messageIndex++) {
+                        while(true){
+                            System.out.println("Mesajınızı giriniz. Cikmak icin bitti yaziniz");
+                            String girilenMessage = input.nextLine();
+                            if(girilenMessage.equals("bitti")){
+                                System.out.println("Cıkıs yapıldı");
+                                break;
+                            }
+                            if (girilenMessage.isEmpty() || Character.isDigit(girilenMessage.charAt(0)) || girilenMessage.contains(" "))
+                            {
 
-                                System.out.printf("Please write your message %d name: ", messageIndex+1);
-                                String messageName = input.next();
+                                    System.out.println("Hata: Girişte başında sayı ve aralarda boşluk bulunmamalıdır.");
+                                    continue;
 
-                                try  {
-                                    System.out.printf("Please write your message %d variable count: ", messageIndex+1);
-                                    int messageVariableCount = input.nextInt();
-                                    for (int variableIndex = 0; variableIndex < messageVariableCount; variableIndex++) {
+                            };
 
-
-                                    }
-                                } catch (Exception e) {
-                                    throw new RuntimeException(e);
-                                }
-
+                            lines.add(girilenMessage);
+                            Files.write(path, lines);
                         }
+                       // Files.write(path, lines);
+                        //sayı almak yerıne sınırsız gırıs hakkı verelım kac kelime girerse onu sayacta tutalım
+
+
+
                     } catch (RuntimeException e) {
                         throw new RuntimeException(e);
                     }
@@ -82,6 +104,10 @@ public class Program {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-    }
+
+
+   }
+
+}
+
 }
