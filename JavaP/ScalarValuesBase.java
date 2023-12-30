@@ -41,17 +41,17 @@ abstract class ScalarValuesBase {
     // Scalar değerleri map'e ekleyen metod
     protected void initializeScalarValuesMap() {
         scalarValuesMap.put(doubleString, doubleStringBase);
-        scalarValuesMap.put(floatString, floatStringBase);
-        scalarValuesMap.put(int32String, int32StringBase);
-        scalarValuesMap.put(int64String, int64StringBase);
-        scalarValuesMap.put(uint32String, uint32StringBase);
-        scalarValuesMap.put(uint64String, uint64StringBase);
         scalarValuesMap.put(sint32String, sint32StringBase);
         scalarValuesMap.put(sint64String, sint64StringBase);
         scalarValuesMap.put(fixed32String, fixed32StringBase);
         scalarValuesMap.put(fixed64String, fixed64StringBase);
+        scalarValuesMap.put(int64String, int64StringBase);
+        scalarValuesMap.put(uint32String, uint32StringBase);
+        scalarValuesMap.put(uint64String, uint64StringBase);
         scalarValuesMap.put(boolString, boolStringBase);
         scalarValuesMap.put(bytesString, bytesStringBase);
         scalarValuesMap.put(stringString, stringStringBase);
+        scalarValuesMap.put(int32String, int32StringBase);
+        scalarValuesMap.put(floatString, floatStringBase);
     }
 }
