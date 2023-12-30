@@ -1,9 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+
+//değişken isimlerinde türkçe harf kontrolü, değişken isimleri (int, float, double olamaz,) değişken isimleri özel karakter ile başlayamaz,
+// değişken ismi kontrolünü dosya adı için de çağır
 
 public class Program {
     public static void setdefaultMessage(String userInput, List<String> lines , List<String>  messageVeriables,List<String> messageVeriablesName){
@@ -29,6 +34,36 @@ public class Program {
         }
         return "";
     }
+    public static boolean messageControl(String inputMessage){
+        if (inputMessage.isEmpty() ||  Character.isDigit(inputMessage.charAt(0)) ||  inputMessage.contains(" ")
+        || inputMessage.equals("int")
+        || inputMessage.equals("double")
+        || inputMessage.equals("float")
+        || inputMessage.equals("char")
+        || inputMessage.equals("boolean")
+        || inputMessage.equals("String"))
+        {
+            System.out.println("Hata: Girişte başında sayı ve aralarda boşluk bulunmamalıdır.");
+            return false;
+        };
+        return true;
+    }
+
+    public static String makeFirstCharBig(String str) {
+        if (str == null || str.isEmpty()) {
+            return str;
+        }
+
+        // Tüm harfleri küçük yap
+        String kucukHarfString = str.toLowerCase();
+
+        // İlk harfi büyük yap
+
+        return Character.toUpperCase(kucukHarfString.charAt(0)) + kucukHarfString.substring(1);
+    }
+                            
+                        
+
     public static void main(String[] args) {
         ScalarValuesCSharp csharp;
         ScalarValuesCPP cpp;
@@ -43,6 +78,7 @@ public class Program {
         try (Scanner input = new Scanner(System.in)) {
             System.out.print("Please write your programming language (C#, C++, Java, Python): ");
             String programmingLanguage = input.nextLine();
+            programmingLanguage = makeFirstCharBig(programmingLanguage);
             while (!programmingLanguage.equals("C#") && !programmingLanguage.equals("C++") && !programmingLanguage.equals("Java") && !programmingLanguage.equals("Python")) {
                 System.out.println("Gecersiz dil girdiniz. Lutfen tekrar giriniz.");
                 System.out.print("Please write your programming language (C#, C++, Java, Python): ");
@@ -53,7 +89,7 @@ public class Program {
             String protoFileNameWithProto = protoFileName + ".proto";
             String selectedLanguage="";
 
-            // programminLanguga kontrolü yap
+            // programmingLanguage control yap
 
             try {
                 Path path = Paths.get(protoFileNameWithProto);
@@ -80,25 +116,23 @@ public class Program {
                                 System.out.println("Cıkıs yapıldı");
                                 break;
                             }
-                            if (girilenMessage.isEmpty() || Character.isDigit(girilenMessage.charAt(0)) || girilenMessage.contains(" "))
-                            {
-
-                                    System.out.println("Hata: Girişte başında sayı ve aralarda boşluk bulunmamalıdır.");
-                                    continue;
-
-                            };
+                            if(!messageControl(girilenMessage)){
+                                continue;
+                            }
                             lines.add("message "+girilenMessage+"{ ");
                             messageList.add(girilenMessage);
-                            int messageCount=0;
+                            int varCount=1;
+                            List<String> varNames = new ArrayList<>();
                             while (true){
-                                messageCount+=1;
-                                System.out.printf(" %d. değişken tipini giriniz. Cikmak icin bitti yaziniz: ",messageCount);
+                                System.out.printf(" %d. değişken tipini giriniz. Cikmak icin bitti yaziniz: ",varCount);
                                 String varType = input.nextLine();
 
                                 if(varType.equals("bitti")){
                                     System.out.println("Cıkıs yapıldı");
                                     break;
                                 }
+                                
+
                                 String protoVarType="";
                                 switch (programmingLanguage){
                                     case "C#":
@@ -117,13 +151,29 @@ public class Program {
                                         System.out.println("SwitchCase defalt. Cıkıs yaptı. Noluyo lan");
                                         break;
                                 }
-                                System.out.println(protoVarType);
+
+                                if (Objects.equals(protoVarType, "")){
+                                    System.out.println("Hatalı bir değişken türü girdiniz. Lütfen tekrar deneyin.");
+                                    continue;
+                                }
 
 
-                                System.out.printf("%d. değişken adını giriniz. \n",messageCount);
-                                String varName = input.nextLine();
-
-                                lines.add(varType+" "+varName+" = "+messageCount+";");
+                                while (true) {
+                                    System.out.printf("%d. değişken adını giriniz: ",varCount);
+                                    String varName = input.nextLine();
+                                    if (!messageControl(varName)) {
+                                        continue;
+                                    }
+                                    if (varNames.contains(varName)){
+                                        System.out.println("Daha önce kullanılmış bir değişken adı girdiniz. Lütfen tekrar deneyin.");
+                                        continue;
+                                    }
+                                    lines.add(protoVarType+" "+varName+" = "+varCount+";");
+                                    varNames.add(varName);
+                                    break;
+                                }
+                                varCount+=1;
+                                
 
 
                             }
@@ -139,6 +189,9 @@ public class Program {
                                 System.out.println("Cıkıs yapıldı");
                                 break;
                             }
+                            if(!messageControl(rpcName)){
+                                continue;
+                            }
                             System.out.println("Mesajlar:");
 
                             for (String mesageN: messageList){
@@ -147,14 +200,27 @@ public class Program {
                             }
 
                             System.out.println("Önce client, sonra server mesaj ismini girin.");
-                            System.out.print("Client mesajı: ");
-                            String clientMessage = input.nextLine();
+                            while (true) {
+                                System.out.print("Client mesajı: ");
+                                String clientMessage = input.nextLine();
+                                if (!messageList.contains(clientMessage)) {
+                                    System.out.println("Girdiginiz mesaj bulunamadi. Lutfen tekrar deneyin");
+                                    continue;
+                                }
 
-                            System.out.print("Server mesajı: ");
-                            String serverMessage = input.nextLine();
+                                while (true) {
+                                     System.out.print("Server mesajı: ");
+                                     String serverMessage = input.nextLine();
+                                     if (!messageList.contains(serverMessage)) {
+                                    System.out.println("Girdiginiz mesaj bulunamadi. Lutfen tekrar deneyin");
+                                    continue;
+                                }
+                                     lines.add("     rpc "+rpcName+"("+clientMessage+") returns ("+serverMessage+") {}");
 
-                            lines.add("     rpc "+rpcName+"("+clientMessage+") returns ("+serverMessage+") {}");
-
+                                     break;
+                                }
+                                break;
+                            }
 
 
                         }
