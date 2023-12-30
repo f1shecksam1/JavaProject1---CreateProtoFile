@@ -6,14 +6,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class Program {
-    /*public void setdefaultMessage(String userInput, List<String> lines , List<String>  messageVeriables,List<String> messageVeriablesName){
+    public static void setdefaultMessage(String userInput, List<String> lines , List<String>  messageVeriables,List<String> messageVeriablesName){
         String messageBase = "message " + userInput + "{";
         lines.add(messageBase);
         for (int i = 0;i<messageVeriables.size();i++){
             String messageVeriables1 =  messageVeriables.get(i) + " " + messageVeriablesName.get(i) + " = " + (i+1);
         }
 
-    }*/
+    }
     public static void main(String[] args) {
 
         ScalarValuesCSharp csharp;
