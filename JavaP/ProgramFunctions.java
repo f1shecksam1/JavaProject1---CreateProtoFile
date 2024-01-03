@@ -76,7 +76,7 @@ public class ProgramFunctions {
 
             {
                 System.out.println(
-                        "Hata: Girişte başında sayı , özel karakter , Türkçe harf , aralarda boşluk ve özel karakter bulunmamalıdır.");
+                        "Hata: Giriste basinda sayi , Turkce harf , aralarda bosluk ve ozel karakter bulunmamalidir.");
                 return false;
             }
             ;
@@ -99,12 +99,12 @@ public class ProgramFunctions {
     }
 
     public String ChooseProgramingLanguage(Scanner input) {
-        System.out.print("Please write your programming language (C#, C++, Java, Python): ");
+        System.out.print("Lutfen programlama dilini secin (C#, C++, Java, Python): ");
         String programmingLanguage = input.nextLine();
         programmingLanguage = makeFirstCharBig(programmingLanguage);
         while (ControlProgramingLanguage(programmingLanguage)) {
             System.out.println("Gecersiz dil girdiniz. Lutfen tekrar giriniz.");
-            System.out.print("Please write your programming language (C#, C++, Java, Python): ");
+            System.out.print("Lutfen programlama dilini secin (C#, C++, Java, Python): ");
             programmingLanguage = input.nextLine();
         }
         return programmingLanguage;
@@ -113,7 +113,7 @@ public class ProgramFunctions {
     public String SetProtoFileName(Scanner input) {
         while (true) {
             String protoFileName;
-            System.out.print("Please write your proto file name: ");
+            System.out.print("Proto dosyasi ismini girin: ");
             protoFileName = input.nextLine();
             if (!ControlFunctions.messageControl(protoFileName)) {
                 continue;
@@ -124,7 +124,7 @@ public class ProgramFunctions {
 
     public boolean ControlEndLoop(String bitti) {
         if (bitti.equals("bitti")) {
-            System.out.println("Cıkıs yapıldı");
+            System.out.println("Cikis yapildi");
             return true;
         }
         return false;
@@ -171,14 +171,14 @@ public class ProgramFunctions {
     public void AddVarToMessageLoop(Scanner input, Integer varCount, List<String> varNames, List<String> lines,
             String protoVarType) {
         while (true) {
-            System.out.printf("%d. değişken adını giriniz: ", varCount);
+            System.out.printf("%d. degisken adini giriniz: ", varCount);
             String varName = input.nextLine();
             if (!ControlFunctions.messageControl(varName)) {
                 continue;
             }
 
             if (ControlListContain(varNames,
-                    "Daha önce kullanılmış bir değişken adı girdiniz. Lütfen tekrar deneyin.",
+                    "Daha once kullanilmis bir degisken adi girdiniz. Lutfen tekrar deneyin.",
                     varName)) {
                 continue;
             }
@@ -192,7 +192,7 @@ public class ProgramFunctions {
     public void AddRpcLoop(Scanner input, List<String> messageList, List<String> lines,
             String rpcName) {
         while (true) {
-            System.out.print("Client mesajı: ");
+            System.out.print("Client mesaji: ");
             String clientMessage = input.nextLine();
 
             if (ControlListNotContain(messageList,
@@ -201,7 +201,7 @@ public class ProgramFunctions {
             }
 
             while (true) {
-                System.out.print("Server mesajı: ");
+                System.out.print("Server mesaji: ");
                 String serverMessage = input.nextLine();
                 if (ControlListNotContain(messageList,
                         "Girdiginiz mesaj bulunamadi. Lutfen tekrar deneyin", serverMessage)) {
